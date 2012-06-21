@@ -1,0 +1,14 @@
+#! /usr/bin/perl
+use Modern::Perl '2012';
+use autodie;
+use YAML ();
+use XML::Tag::html5;
+use HLPerl;
+use Reveal;
+use utf8;
+use open qw< :std :utf8  >;
+my $frown = "\x{2639}"; 
+my $prez  = do { local $/; <ARGV> };
+my @html  =  eval $prez;
+$@ and die $@;
+say @html;
