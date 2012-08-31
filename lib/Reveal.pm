@@ -35,74 +35,90 @@ sub FP { map { p{+{qw< class fragment >}, $_} } @_ }
 
 1;
 __DATA__
-<html lang="en"><head><meta charset="utf-8"><title>reveal.js</title>
-<meta name="description" content="An easy to use CSS 3D slideshow tool for quickly creating good looking HTML presentations.">
-		<meta name="author" content="Hakim El Hattab">
+<!doctype html>  
+<html lang="en">
+	
+	<head>
+		<meta charset="utf-8">
+		
+		<title>%%TITLE%%</title>
+
+		<meta name="description" content="%%DESC%%">
+		<meta name="author" content="%%AUTHOR%%">
+
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		
 		<link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="css/reset.css">
+		
 		<link rel="stylesheet" href="css/main.css">
-		<link rel="stylesheet" href="css/print.css" type="text/css" media="print">
-		<link rel="stylesheet" href="lib/zenburn.css">
-	</head>
+		<link rel="stylesheet" href="css/theme/default.css">
 
-	<body style="margin-top: 10px">
-        <div id="reveal">
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<script>
+			// If the query includes 'print-pdf' we'll use the PDF print sheet
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+	
+	<body>
+		
+		<div class="reveal">
+
 			<!-- Used to fade in a background when a specific slide state is reached -->
 			<div class="state-background"></div>
 			
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
-                        XXXX </div> </div>
-        <script src="js/reveal.js"></script>
-		<!-- Optional libraries for code syntax highlighting and classList support in IE9 -->
-		<script src="lib/highlight.js"></script>
-		<script src="lib/classList.js"></script>
-		
+                        XXXX 
+			</div>
+
+			<!-- The navigational controls UI -->
+			<aside class="controls">
+				<a class="left" href="#">&#x25C4;</a>
+				<a class="right" href="#">&#x25BA;</a>
+				<a class="up" href="#">&#x25B2;</a>
+				<a class="down" href="#">&#x25BC;</a>
+			</aside>
+
+			<!-- Presentation progress bar -->
+			<div class="progress"><span></span></div>
+			
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
 		<script>
-			// Parse the query string into a key/value object
-			var query = {};
-			location.search.replace( /[A-Z0-9]+?=(\w*)/gi, function(a) {
-				query[ a.split( '=' ).shift() ] = a.split( '=' ).pop();
-			} );
-
-			// Fires when a slide with data-state=customevent is activated
-			Reveal.addEventListener( 'customevent', function() {
-				alert( '"customevent" has fired' );
-			} );
-
-			// Fires each time a new slide is activated
-			Reveal.addEventListener( 'slidechanged', function( event ) {
-				// event.indexh & event.indexv
-			} );
-
+			
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
 			Reveal.initialize({
-				// Display controls in the bottom right corner
 				controls: true,
-
-				// Display a presentation progress bar
 				progress: true,
-
-				// If true; each slide will be pushed to the browser history
 				history: true,
+				
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/linear(2d)
 
-				// Loops the presentation, defaults to false
-				loop: false,
-
-				// Flags if mouse wheel navigation should be enabled
-				mouseWheel: true,
-
-				// Apply a 3D roll to links on hover
-				rollingLinks: true,
-
-				// UI style
-				theme: query.theme || 'default', // default/neon
-
-				// Transition style
-				transition: query.transition || 'default' // default/cube/page/concave/linear(2d)
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/highlight.js', async: true, callback: function() { window.hljs.initHighlightingOnLoad(); } },
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'lib/js/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'lib/js/data-markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'socket.io/socket.io.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } },
+					{ src: 'plugin/speakernotes/client.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } },
+				]
 			});
-
-			hljs.initHighlightingOnLoad();
+			
 		</script>
-	</body> </html>
+
+	</body>
+</html>
+
